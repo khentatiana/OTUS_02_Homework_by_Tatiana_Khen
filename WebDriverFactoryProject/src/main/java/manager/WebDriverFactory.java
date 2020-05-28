@@ -44,10 +44,9 @@ public class WebDriverFactory {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("headless");
                 return new ChromeDriver(options);
-
-            default:
-                WebDriverManager.chromedriver().setup();
-                return new ChromeDriver();
         }
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+
     }
 }
