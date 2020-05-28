@@ -25,12 +25,12 @@ public class WebDriverFactory {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("headless");
                 return new ChromeDriver(options);
-
-            default:
-                return null;
-
         }
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
+
     }
+
 
     public static WebDriver createNewDriver(DriverType browserType, MutableCapabilities wdOptions) {
         switch (browserType) {
@@ -46,7 +46,8 @@ public class WebDriverFactory {
                 return new ChromeDriver(options);
 
             default:
-                return null;
+                WebDriverManager.chromedriver().setup();
+                return new ChromeDriver();
         }
     }
 }

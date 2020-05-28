@@ -19,15 +19,24 @@ public abstract class BaseTest {
 
     @BeforeMethod
     protected void oneTimeSetUp(){
+        //if WebDriverFactory return driver == null. Chrome is a default
+        if (driver == null) {
+            driver = WebDriverFactory.createNewDriver(DriverType.CHROME);
+            logger.info("Browser name was not identified. CHROME browser used as a default.");
+            System.out.println("=====Browser name was not identified. CHROME browser used as a default.===");
+        }
 
-        String browser = System.getProperty("browser").toUpperCase();
-        logger.info("Browser name is {}", browser);
-        System.out.println("======Browser name is " + browser +"======");
-        driver = WebDriverFactory.createNewDriver(DriverType.valueOf(browser));
-        logger.info("{} driver is created ", browser);
-        System.out.println("======New driver " + browser +" is created======");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        else {
+
+            String browser = System.getProperty("browser").toUpperCase();
+            logger.info("Browser name is {}", browser);
+            System.out.println("======Browser name is " + browser + "======");
+            driver = WebDriverFactory.createNewDriver(DriverType.valueOf(browser));
+            logger.info("{} driver is created ", browser);
+            System.out.println("======New driver " + browser + " is created======");
+        }
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
     }
 
